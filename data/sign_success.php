@@ -43,14 +43,21 @@
                         $sql7 = "CREATE TABLE {$fname} (rect_code INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,card_id INT(11) NOT NULL , tran_message VARCHAR(255) NOT NULL, date_time TIMESTAMP NOT NULL)";
                         if ($con->query($sql7) === TRUE) {
                             echo "<script> alert('Successfully Created!!'); location.href='../Login.php'; </script>";
+                        }else{
+                            echo "<script> alert('Error!!'); location.href='../signup.php'; </script>";
                         }
+                    }else{
+                        echo "<script> alert('Error!!'); location.href='../signup.php'; </script>";
                     }
+                }else{
+                    echo "<script> alert('Error!!'); location.href='../signup.php'; </script>";
                 }
+            }else{
+                echo "<script> alert('Error!!'); location.href='../signup.php'; </script>";
             }
 
         } else {
-            echo "Something Went Wrong :( <br>";
-            echo "Details: " . $con->error;
+            echo "<script> alert('Error!! { $con->error}'); location.href='../signup.php'; </script>";
         }
     }
     $con->close();

@@ -131,11 +131,11 @@ include "./data/config.php";
                 </div>
             <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $row['client_firstN'];?>" required>
+                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" value="<?php echo $row['client_firstN'];?>" required>
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $row['client_lastN'];?>" required>
+                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" value="<?php echo $row['client_lastN'];?>" required>
             </div>
             <div class="mb-3">
                 <label class="my-1">Gender</label>
@@ -278,5 +278,10 @@ include "./data/config.php";
         });
     });
     
+</script>
+<script>
+    function removeSpaces(string) {
+    return string.split(' ').join('');
+    }
 </script>
 </html>

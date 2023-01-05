@@ -134,7 +134,7 @@ include "./data/config.php";
     <div class="modal-content bg-dark text-light">
         <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg text-white"></i></button>
         </div>
         <div class="modal-body">
             <!--Form-->
@@ -144,11 +144,11 @@ include "./data/config.php";
                 </div>
             <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" required>
+                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" required>
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" required>
+                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" required>
             </div>
             <div class="mb-3">
                 <label class="my-1">Gender</label>
@@ -287,4 +287,9 @@ include "./data/config.php";
         $("#address").val(address);
     }
     </script>
+    <script>
+    function removeSpaces(string) {
+    return string.split(' ').join('');
+    }
+</script>
 </html>

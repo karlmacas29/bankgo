@@ -24,11 +24,11 @@
                     </div>
                     <div class="input-group">
                         <label for="input1" class="input-group-text bg-light text-dark">First Name</label>
-                        <input type="text" id="input1" class="form-control bg-dark text-light " name="fname" placeholder="John" oninput="this.value=removeSpaces(this.value);" required>
+                        <input type="text" id="input1" class="form-control bg-dark text-light " name="fname" placeholder="John" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" required>
                     </div>
                     <div class="input-group mt-3 col-8 mx-auto">
                         <label for="input2" class="input-group-text bg-light text-dark">Last Name</label>
-                        <input type="text" id="input2" class="form-control bg-dark text-light " name="lname" placeholder="Doe" oninput="this.value=removeSpaces(this.value);" required>
+                        <input type="text" id="input2" class="form-control bg-dark text-light " name="lname" placeholder="Doe" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" required>
                     </div>
                     <div class="input-group mt-3 col-8 mx-auto">
                     <label class="input-group-text bg-light text-dark" for="gend">Gender</label>
