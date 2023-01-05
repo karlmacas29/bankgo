@@ -19,6 +19,7 @@
                 <div class="container p-5">
                     <button class="btn btn-outline-light" id="bp" onclick="window.location.href='signup.php'">Sign Up</button>
                     <button class="btn btn-outline-light" id="bp" onclick="window.location.href='Login.php'">Card Id Login</button>
+                    <button class="btn btn-outline-light" id="bp" onclick="window.location.href='./admin/admin-home.php '">Admin Login</button>
                 </div>
             </div>
             <div class="col-xl-6">

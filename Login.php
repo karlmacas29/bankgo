@@ -8,16 +8,18 @@ if(isset($_POST['userEnt'])){
 
     if ($password != 0){
 
-        $sql_query = "SELECT count(*) AS cntUser, client_id FROM clients WHERE card_id='".$card_id."' ";
+        $sql_query = "SELECT count(*) AS cntUser, client_id, client_firstN FROM clients WHERE card_id='".$card_id."' ";
         $result = mysqli_query($con,$sql_query);
         $row = mysqli_fetch_array($result);
 
         $count = $row['cntUser'];
         $id = $row['client_id'];
+        $name = $row['client_firstN'];
 
         if($count > 0){
             $_SESSION['card_id'] = $card_id;
             $_SESSION['id'] = $id;
+            $_SESSION['name'] = $name;
             header('Location: dashboard.php');
         }else{
             $msglog = "Card ID Not FOUND";
@@ -47,7 +49,7 @@ if(isset($_POST['userEnt'])){
                             <h3>Enter your Card ID Number:</h3>
                         </div>
                         <div class="mt-3 col-8 mx-auto">
-                            <input type="password" placeholder="000" id="inputPassword6" class="form-control bg-light" name="idclient" required>
+                            <input type="password" placeholder="000" id="inputPassword6" class="form-control bg-dark text-light" name="idclient" required>
                         </div>
                         <div class="mt-3 col-8 mx-auto text-center">
                             <?php echo '<p class="bg-danger text-light rounded-1">'.@$msglog.'</p>'; ?>

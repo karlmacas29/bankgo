@@ -7,6 +7,7 @@ include "./data/config.php";
     }
 
     $id = $_SESSION['id'];
+    $user = $_SESSION['name'];
     $con = new mysqli($server, $username, $password, $db);
 
     $sqlCode = "SELECT * FROM clients WHERE client_id = {$id} ";
@@ -22,16 +23,26 @@ include "./data/config.php";
 </head>
 <body id="bg1" class="bg-dark m-3">
     <?php include('./navbar/nav2.php'); ?>
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-    ?>
+   
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
-            <?php include "../bankgo/navbar/navb.php" ?>
+        <?php 
+            $sql12 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
+            $result2 = $con->query($sql12);
+            if ($result2->num_rows > 0) {
+                while ($row = $result2->fetch_assoc()) {
+                        include "./navbar/navb.php";
+                    }
+                }
+            ?>
+             <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+            ?>
         </div>
         <div class="col-xl-10 px-4 mt-3 text-light">
             <div class="container p-5 rounded rounded-5" style="background-color: #37393e;">
+            <h3>Profile</h3>
             <div class="container">
             <div class="row">
                 <div class="col-md-4 text-center">
@@ -77,6 +88,9 @@ include "./data/config.php";
                                     <td><?php echo $row['client_c_address'] ?></td>
                                 </tr>
                             </table>
+                            <div class="d-grid col-6 mx-auto">
+                                <button class="btn btn-primary" id="fedit">EDIT</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -101,8 +115,105 @@ include "./data/config.php";
             </div>
         </div>
     </div>
+    
+        <div class="modal fade" id="formModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!--Form-->
+            <form>
+            <div class="mb-3">
+                <input class="form-control" type="hidden" id="idPer" name="idPer" value="<?php echo $row['client_id'];?>">
+                </div>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $row['client_firstN'];?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $row['client_lastN'];?>" required>
+            </div>
+            <div class="mb-3">
+                <label class="my-1">Gender</label>
+                <select class="form-select" name="sex" id="gend" required>
+                    <?php
+                    if ($row['client_gender'] == "Male"){
+                        echo "<option value='Male' selected>Male</option>";
+                        echo "<option value='Female'>Female</option>";
+                        echo "<option value='Others'>Others</option>";
+                    }elseif ($row['client_gender'] == "Female"){
+                        echo "<option value='Male'>Male</option>";
+                        echo "<option value='Female' selected>Female</option>";
+                        echo "<option value='Others'>Others</option>";
+                    }elseif ($row['client_gender'] == "Others"){
+                        echo "<option value='Male'>Male</option>";
+                        echo "<option value='Female'>Female</option>";
+                        echo "<option value='Others' selected>Others</option>";
+                    }else{
+                        echo "<option value='Male'>Male</option>";
+                        echo "<option value='Female'>Female</option>";
+                        echo "<option value='Others'>Others</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="bdate" class="form-label">Birth Date</label>
+                <input type="date" class="form-control" id="bdate" name="bdate" value="<?php echo $row['client_bdate']; ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Your Address</label>
+                <textarea class="form-control" id="address" rows="2" name="address"><?php echo $row['client_c_address']; ?></textarea>
+            </div>
+        </form>
+        <!--Form-->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="upt1">Update</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+    </div>
+    </div>
+    </div>
     <?php }
         }?>
+
+        <!-- Modal -->
+    <div class="modal fade" id="confirm2">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-check-circle"></i></h1>
+        </div>
+        <div class="modal-body">
+            <strong id="say12"></strong>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="okay1">Okay</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="confirmErr">
+    <div class="modal-dialog ">
+        <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-exclamation-circle"></i></h1>
+        </div>
+        <div class="modal-body">
+            <strong id="say12"></strong>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="okay1">Okay</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </body>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery.min.js"></script>
@@ -119,8 +230,53 @@ include "./data/config.php";
         $("#user1").click(function(){
             $("#exampleModal").modal("show");
         });
-    });
 
+        $("button#fedit").click(function(){
+            $("div#formModal").modal("show");
+        });
+
+
+        $("#upt1").click(function(){
+            var id = $("#idPer").val();
+            var fname = $("#firstname").val();
+            var lname = $("#lastname").val();
+            var gend = $("#gend").val();
+            var bdate = $("#bdate").val();
+            var address = $("#address").val();
+
+            var fdata = {
+                id : id,
+                fname : fname,
+                lname : lname,
+                sex : gend,
+                bdate : bdate,
+                addr : address,
+            }
+            
+            $.ajax({
+                url : "./data/uptData.php",
+                type : "POST",
+                data : fdata,
+                dataType : "json",
+                success : function(res){
+                    if(res['val'] == false){
+                        var text = res['msg'];
+                        $("#say12").html(text);
+                        $("div#formModal").modal("hide");
+                        $("#confirmErr").modal("show");
+                    }else{
+                        var text = res['msg'];
+                        $("#say12").html(text);
+                        $("div#formModal").modal("hide");
+                        $("#confirm2").modal("show");
+                    }
+                }
+            });
+            $("button#okay1").click(function(){
+                window.location.href="account.php";
+                });
+        });
+    });
     
 </script>
 </html>

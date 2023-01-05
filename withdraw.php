@@ -7,6 +7,7 @@ include "./data/config.php";
     }
 
     $id = $_SESSION['id'];
+    $user = $_SESSION['name'];
 
     $sqlCode = "SELECT B.client_id AS ClientId, B.card_id AS CardID, B.client_firstN, B.client_lastN, A.bal_balance AS Balance, C.wit_amount AS Withdraw_Amount, D.dep_amount AS Deposit_Amount FROM balance_inq A INNER JOIN clients B ON A.client_id = B.client_id INNER JOIN withdrawals C ON B.client_id = C.client_id INNER JOIN deposit D ON B.client_id = D.client_id WHERE B.client_id = {$id} ";
 
@@ -21,31 +22,43 @@ include "./data/config.php";
 </head>
 <body id="bg1" class="bg-dark m-3">
     <?php include('./navbar/nav2.php'); ?>
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-    ?>
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
-            <?php include "../bankgo/navbar/navb.php" ?>
+        <?php 
+        $sql12 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
+        $result2 = $con->query($sql12);
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+                    include "./navbar/navb.php";
+                }
+            }
+        ?>
+        <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+            ?>
         </div>
         <div class="col-xl-10 px-4 mt-3 text-light">
             <div class="container p-5 rounded rounded-5" style="background-color: #37393e;">
                 
-                <form >
+                
                 <h3>Enter amount to Withdraw:</h3>
                     <div class="container my-3 p-3 text-light border border-light rounded rounded-5 text-center">
                         <h5>Account Name: <?php echo $row['client_firstN']." ".$row['client_lastN'] ?></h5>
                         <h5>Your Card ID: <?php echo $row['CardID'] ?></h5>
                         <h5>Your ATM balance: ₱ <?php echo $row['Balance'] ?></h5>
                     </div>
-                    <input type="hidden" class="form-control" value="<?php echo $row['ClientId'] ?>" name="id-dep" id="id-wit">
+                    <form>
+                    <input type="hidden" class="form-control" value="<?php echo $row['ClientId'] ?>" name="idwit" id="idwit">
+                    <input type="hidden" class="form-control" value="<?php echo $row['client_firstN'] ?>" name="name3" id="name3">
+                    <input type="hidden" class="form-control" value="<?php echo $row['CardID'] ?>" name="card3" id="card3">
+                        <div class="d-grid col-8 mx-auto">    
                         <div class="input-group mb-3">
                             <span class="input-group-text bg-dark text-light" id="basic-addon1">₱</span>
-                            <input type="number" class="form-control form-control-lg bg-dark text-light" min="1" placeholder="0" name="deposit-data" id="wit-data" required>
-                        </div></form>
+                            <input type="number" class="form-control form-control-lg bg-dark text-light" min="1" max="1000000" value="0" name="witdata" id="witdata" required>
+                        </div></form></div>
                         <div class="d-grid col-6 mx-auto">
-                            <button class="btn btn-primary border border-light" id="upt1">Withdraw</button>
+                            <button class="btn btn-primary" id="upt1">Withdraw</button>
                         </div>
             </div>
         </div>
@@ -114,16 +127,20 @@ include "./data/config.php";
             $("#exampleModal").modal("show");
         });
         $("#upt1").click(function(){
-            var id = $("#id-wit").val();
-            var wit = $("#wit-data").val();
+            var id = $("#idwit").val();
+            var wit = $("#witdata").val();
+            var name3 = $("#name3").val();
+            var card3 = $("#card3").val();
 
                 var fdata = {
                 id : id,
                 wit : wit,
+                name3 : name3,
+                card3 : card3
                 }
 
                 $.ajax({
-                url : "/bankgo/data/withdrawdata.php",
+                url : "./data/withdrawdata.php",
                 type : "POST",
                 data : fdata,
                 dataType : "json",

@@ -66,15 +66,6 @@
     .c5{
         display: none;
     }
-    a {
-      position: relative;
-    }
-    span.span3{
-      display: block;
-      position: absolute;
-      top: 11px;
-      right: 8px;
-    }
     .sidebar{
       padding: 0;
     }

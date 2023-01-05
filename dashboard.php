@@ -7,6 +7,7 @@ include "./data/config.php";
     }
 
     $id = $_SESSION['id'];
+    $user = $_SESSION['name'];
 
     $sqlCode = "SELECT B.client_id AS ClientId, B.card_id AS CardID, B.client_firstN, B.client_lastN, A.bal_balance AS Balance, C.wit_amount AS Withdraw_Amount, D.dep_amount AS Deposit_Amount FROM balance_inq A INNER JOIN clients B ON A.client_id = B.client_id INNER JOIN withdrawals C ON B.client_id = C.client_id INNER JOIN deposit D ON B.client_id = D.client_id WHERE B.client_id = "."$id"." ";
 
@@ -21,13 +22,24 @@ include "./data/config.php";
 </head>
 <body id="bg1" class="bg-dark m-3">
     <?php include('./navbar/nav2.php'); ?>
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-    ?>
+    
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
-            <?php include "../bankgo/navbar/navb.php" ?>
+        <?php 
+
+        $sql12 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
+        $result2 = $con->query($sql12);
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+                    include "./navbar/navb.php";
+                }
+            }
+        ?>  
+
+    <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+        ?>
         </div>
         <div class="col-xl-10 px-4 mt-1 text-light">
             <div class="container p-5 rounded rounded-5" style="background-color: #37393e;">
