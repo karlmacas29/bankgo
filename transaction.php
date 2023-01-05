@@ -84,9 +84,7 @@ include "./data/config.php";
                     while ($row = $result3->fetch_assoc()) {
                         echo $row["client_firstN"];
                         ?>
-                        <form>
                             <input type="hidden" class="form-control" value="<?php echo $row['client_firstN'] ?>" name="name3" id="name3">
-                        </form>
                         <?php
                     }
                 }
