@@ -20,7 +20,7 @@ if(isset($_POST['userEnt'])){
             $_SESSION['ad_id'] = $id;
             header('Location: admin-home.php');
         }else{
-            $msglog = "ADMIN account Not FOUND";
+            $msglog = "Email And Password are Incorrect";
         }
 
     }
@@ -50,6 +50,9 @@ if(isset($_POST['userEnt'])){
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control bg-dark text-light" id="exampleInputPassword1" name="pass">
                 </div>
+                <div class="mt-3 col-8 mx-auto text-center">
+                        <?php echo '<p class="bg-danger text-light rounded-1">'.@$msglog.'</p>'; ?>
+                    </div>
                 <div class="d-grid col-6 mx-auto mb-3">
                     <input type="submit" class="btn btn-primary" value="Log In" name="userEnt">
                 </div>
