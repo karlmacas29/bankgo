@@ -8,13 +8,17 @@
     @$bdate = $_POST["bdate"];
     @$address = $_POST["address"];
 
-    $sql9 = "SELECT client_id, card_id FROM clients WHERE card_id = {$idcard}";
+    $sql9 = "SELECT client_id, card_id, client_firstN, client_lastN FROM clients WHERE card_id = {$idcard}";
         $result = mysqli_query($con,$sql9);
         $row = mysqli_fetch_array($result);
         $id9 = $row["card_id"];
+        $fname2 = $row["client_firstN"];
+        $lname2 = $row["client_lastN"];
 
     if($idcard == $id9){
         echo "<script> alert('This card id already exist!'); location.href='../signup.php';</script>";
+    }elseif($fname == $fname2 OR $lname == $lname2){
+        echo "<script> alert('This First Name and Last Name Are Exist!'); location.href='../signup.php';</script>";
     }else{
         $sql = "INSERT INTO `clients`( `card_id`, `client_firstN`, `client_lastN`, `client_gender`, `client_bdate`, `client_c_address`) VALUES ('{$idcard}','{$fname}','{$lname}','{$gender}','{$bdate}','{$address}')";
 
