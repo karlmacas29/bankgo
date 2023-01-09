@@ -7,11 +7,18 @@ include "./data/config.php";
     }
 
     $id = $_SESSION['id'];
-    $user = $_SESSION['name'];
+
+    $sql1 = "SELECT client_firstN FROM clients WHERE client_id = {$id}";
+            $result = mysqli_query($con, $sql1);
+            $row = mysqli_fetch_array($result);
+            $Us1 = $row["client_firstN"];
+
+            $_SESSION['name'] = $Us1;
+            $user = $_SESSION['name'];
     $con = new mysqli($server, $username, $password, $db);
 
     $sqlCode = "SELECT * FROM clients WHERE client_id = {$id} ";
-
+    
     $result = $con->query($sqlCode);
 
 ?>
