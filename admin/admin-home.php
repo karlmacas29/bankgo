@@ -26,7 +26,7 @@ include "./data/config.php";
             <?php include "./navbar/nav4.php" ?>
         </div>
         <div class="col-xl-10 px-4 mt-3 text-light">
-            <div class="container p-5 rounded rounded-5" style="background-color: #37393e;">
+            <div class="container p-5 rounded rounded-5 overflow-auto" style="background-color: #37393e;">
             <h3>Client List</h3>
             <table class="table table-dark">
                 <tr class="text-center text-light">
