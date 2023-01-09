@@ -39,6 +39,7 @@ include "./data/config.php";
            $row = mysqli_fetch_array($result4);
            $firstN = $row["client_firstN"];
            $lastN = $row["client_lastN"];
+            $idCl = $row["client_id"];
    
            $sql_q = "SELECT count(*) AS cnt FROM {$user} ORDER BY date_time DESC";
            $result5 = mysqli_query($con,$sql_q);
@@ -274,12 +275,12 @@ include "./data/config.php";
                 success : function(res){
                     if(res['val'] == false){
                         var text = res['msg'];
-                        $("#say12").html(text);
+                        $("strong#say12").html(text);
                         $("div#formModal").modal("hide");
                         $("#confirmErr").modal("show");
                     }else{
                         var text = res['msg'];
-                        $("#say12").html(text);
+                        $("strong#say12").html(text);
                         $("div#formModal").modal("hide");
                         $("#confirm2").modal("show");
                     }

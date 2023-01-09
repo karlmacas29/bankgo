@@ -255,12 +255,12 @@ include "./data/config.php";
                 success : function(res){
                     if(res['val'] == false){
                         var text = res['msg'];
-                        $("#say12").html(text);
+                        $("strong#say12").html(text);
                         $("div#formModal").modal("hide");
                         $("#confirmErr").modal("show");
                     }else{
                         var text = res['msg'];
-                        $("#say12").html(text);
+                        $("strong#say12").html(text);
                         $("div#formModal").modal("hide");
                         $("#confirm2").modal("show");
                     }
