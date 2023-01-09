@@ -144,15 +144,15 @@ include "./data/config.php";
                 </div>
             <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" required>
+                <input type="text" class="form-control bg-dark text-white" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" required>
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" required>
+                <input type="text" class="form-control bg-dark text-white" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" required>
             </div>
             <div class="mb-3">
                 <label class="my-1">Gender</label>
-                <select class="form-select" name="sex" id="gend" required>  
+                <select class="form-select bg-dark text-white" name="sex" id="gend" required>  
                     <option value='Male'>Male</option>
                     <option value='Female'>Female</option>
                     <option value='Others'>Others</option>   
@@ -160,11 +160,11 @@ include "./data/config.php";
             </div>
             <div class="mb-3">
                 <label for="bdate" class="form-label">Birth Date</label>
-                <input type="date" class="form-control" id="bdate" name="bdate" required>
+                <input type="date" class="form-control bg-dark text-white" id="bdate" name="bdate" required>
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Your Address</label>
-                <textarea class="form-control" id="address" rows="2" name="address"></textarea>
+                <textarea class="form-control bg-dark text-white" id="address" rows="2" name="address"></textarea>
             </div>
         </form>
         <!--Form-->

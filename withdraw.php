@@ -25,13 +25,18 @@ include "./data/config.php";
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
         <?php 
-        $sql12 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
-        $result2 = $con->query($sql12);
-        if ($result2->num_rows > 0) {
-            while ($row = $result2->fetch_assoc()) {
-                    include "./navbar/navb.php";
-                }
-            }
+        $sql_query = "SELECT * FROM clients WHERE client_id = {$id}";
+        $result4 = mysqli_query($con,$sql_query);
+        $row = mysqli_fetch_array($result4);
+        $firstN = $row["client_firstN"];
+        $lastN = $row["client_lastN"];
+
+        $sql_q = "SELECT count(*) AS cnt FROM {$user} ORDER BY date_time DESC";
+        $result5 = mysqli_query($con,$sql_q);
+        $row = mysqli_fetch_array($result5);
+        $cnt = $row["cnt"];
+
+        include "./navbar/navb.php";       
         ?>
         <?php
             if ($result->num_rows > 0) {

@@ -23,14 +23,19 @@ include "./data/config.php";
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
         <?php 
+        $sql_query = "SELECT * FROM clients WHERE client_id = {$id}";
+        $result4 = mysqli_query($con,$sql_query);
+        $row = mysqli_fetch_array($result4);
+        $firstN = $row["client_firstN"];
+        $lastN = $row["client_lastN"];
 
-        $sql1 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
-        $result2 = $con->query($sql1);
-        if ($result2->num_rows > 0) {
-            while ($row = $result2->fetch_assoc()) {
-                    include "./navbar/navb.php";
-                }
-            }
+        $sql_q = "SELECT count(*) AS cnt FROM {$user} ORDER BY date_time DESC";
+        $result5 = mysqli_query($con,$sql_q);
+        $row = mysqli_fetch_array($result5);
+        $cnt = $row["cnt"];
+
+        include "./navbar/navb.php";
+                
         ?>
         </div>
         <div class="col-xl-10 px-4 mt-3 text-light">
@@ -77,17 +82,8 @@ include "./data/config.php";
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-circle"></i> Hello <?php 
-                $result3 = $con->query($sql1);
-                if ($result3->num_rows > 0) {
-                    while ($row = $result3->fetch_assoc()) {
-                        echo $row["client_firstN"];
-                        ?>
-                            <input type="hidden" class="form-control" value="<?php echo $row['client_firstN'] ?>" name="name3" id="name3">
-                        <?php
-                    }
-                }
-                ?>👋</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-circle"></i> Hello <?php echo $firstN; ?>👋</h1>
+                <input type="hidden" class="form-control" value="<?php echo $firstN ?>" name="name3" id="name3">
                 <button type="button" class="btn" data-bs-dismiss="modal"><i class="bi bi-x-lg text-white"></i></button>
             </div>
             <div class="modal-body">

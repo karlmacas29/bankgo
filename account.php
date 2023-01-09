@@ -34,13 +34,19 @@ include "./data/config.php";
     <div class="row">
         <div class="col-xl-2 px-4 text-light">
         <?php 
-            $sql12 = "SELECT count(*) AS cnt, A.client_firstN, A.client_lastN FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id";
-            $result2 = $con->query($sql12);
-            if ($result2->num_rows > 0) {
-                while ($row = $result2->fetch_assoc()) {
-                        include "./navbar/navb.php";
-                    }
-                }
+           $sql_query = "SELECT * FROM clients WHERE client_id = {$id}";
+           $result4 = mysqli_query($con,$sql_query);
+           $row = mysqli_fetch_array($result4);
+           $firstN = $row["client_firstN"];
+           $lastN = $row["client_lastN"];
+   
+           $sql_q = "SELECT count(*) AS cnt FROM {$user} ORDER BY date_time DESC";
+           $result5 = mysqli_query($con,$sql_q);
+           $row = mysqli_fetch_array($result5);
+           $cnt = $row["cnt"];
+            
+           include "./navbar/navb.php";
+
             ?>
              <?php
             if ($result->num_rows > 0) {
@@ -128,25 +134,25 @@ include "./data/config.php";
     <div class="modal-content bg-dark text-light">
         <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg text-white"></i></button>
         </div>
         <div class="modal-body">
             <!--Form-->
             <form>
             <div class="mb-3">
-                <input class="form-control" type="hidden" id="idPer" name="idPer" value="<?php echo $row['client_id'];?>">
+                <input class="form-control " type="hidden" id="idPer" name="idPer" value="<?php echo $row['client_id'];?>">
                 </div>
             <div class="mb-3">
                 <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" value="<?php echo $row['client_firstN'];?>" required>
+                <input type="text" class="form-control bg-dark text-white" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="firstname" name="firstname" value="<?php echo $row['client_firstN'];?>" required>
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" value="<?php echo $row['client_lastN'];?>" required>
+                <input type="text" class="form-control bg-dark text-white" onkeydown="return /[a-z]/i.test(event.key);" oninput="this.value=removeSpaces(this.value);" id="lastname" name="lastname" value="<?php echo $row['client_lastN'];?>" required>
             </div>
             <div class="mb-3">
                 <label class="my-1">Gender</label>
-                <select class="form-select" name="sex" id="gend" required>
+                <select class="form-select bg-dark text-white" name="sex" id="gend" required>
                     <?php
                     if ($row['client_gender'] == "Male"){
                         echo "<option value='Male' selected>Male</option>";
@@ -170,11 +176,11 @@ include "./data/config.php";
             </div>
             <div class="mb-3">
                 <label for="bdate" class="form-label">Birth Date</label>
-                <input type="date" class="form-control" id="bdate" name="bdate" value="<?php echo $row['client_bdate']; ?>" required>
+                <input type="date" class="form-control bg-dark text-white" id="bdate" name="bdate" value="<?php echo $row['client_bdate']; ?>" required>
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Your Address</label>
-                <textarea class="form-control" id="address" rows="2" name="address"><?php echo $row['client_c_address']; ?></textarea>
+                <textarea class="form-control bg-dark text-white" id="address" rows="2" name="address"><?php echo $row['client_c_address']; ?></textarea>
             </div>
         </form>
         <!--Form-->
