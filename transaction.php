@@ -60,7 +60,7 @@ include "./data/config.php";
                     <tr class="text-white text-center">
                     
                         <td><?php echo $rowM["card_id"]; ?></td>
-                        <td><?php echo $rowM["tran_message"]; ?></td>
+                        <td><?php echo htmlentities($rowM["tran_message"]); ?></td>
                         <td><?php echo $rowM["date_time"]; ?></td>
 
                     </tr>
