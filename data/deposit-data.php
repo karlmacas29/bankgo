@@ -10,7 +10,6 @@
         $msg = array("val" => false, "msg" => "Please Insert Value and Not to be 0");
         echo json_encode($msg);
     } else {
-        $dep = "UPDATE deposit SET dep_amount = dep_amount + {$deposit} , dept_time = CURRENT_TIMESTAMP WHERE client_id = {$id}";
 
         $sql = "UPDATE balance_inq SET bal_balance = bal_balance + {$deposit} WHERE client_id = {$id}";
 
@@ -18,8 +17,13 @@
 
 
         $msg = "";
-        if ($con->query($dep) === TRUE and $con->query($sql) === TRUE and $con->query($sql3) === TRUE) {
-            $msg = array("val" => true, "msg" => "Deposit Success!");
+        if ($con->query($sql) === TRUE and $con->query($sql3) === TRUE) {
+            $dep = "UPDATE deposit SET dep_amount = dep_amount + {$deposit} , dept_time = CURRENT_TIMESTAMP WHERE client_id = {$id}";
+            if($con->query($dep) === TRUE){
+                $msg = array("val" => true, "msg" => "Deposit Success!");
+            }else{
+                $msg = array("val" => false, "msg" => "ERROR :{$con->error}");
+            }
         } else {
             $msg = array("val" => false, "msg" => "ERROR :{$con->error}");
         }

@@ -10,10 +10,6 @@ include "./data/config.php";
     $user = $_SESSION['name'];
     $con = new mysqli($server, $username, $password, $db);
 
-    $sqlCode = "SELECT * FROM clients A INNER JOIN {$user} B WHERE A.client_id = {$id} AND A.card_id = B.card_id ORDER BY B.date_time DESC";
-
-    $result = $con->query($sqlCode);
-
     
 ?>
 <!DOCTYPE html>
@@ -50,14 +46,17 @@ include "./data/config.php";
                     </thead>
                     <tbody>
                     <?php
+                    $sqlCode = "SELECT * FROM {$user} ORDER BY date_time DESC";
+
+                    $result = $con->query($sqlCode);
                         if ($result->num_rows > 0) {
-                            while ($row2 = $result->fetch_assoc()) {
+                            while ($rowM = $result->fetch_assoc()) {
                         ?>
                     <tr class="text-white text-center">
                     
-                        <td><?php echo $row2["card_id"]; ?></td>
-                        <td><?php echo $row2["tran_message"]; ?></td>
-                        <td><?php echo $row2["date_time"]; ?></td>
+                        <td><?php echo $rowM["card_id"]; ?></td>
+                        <td><?php echo $rowM["tran_message"]; ?></td>
+                        <td><?php echo $rowM["date_time"]; ?></td>
 
                     </tr>
                     <?php 
