@@ -24,7 +24,7 @@
             </div>
             <div class="col-xl-6">
                 <div class="container">
-                    <img src="./img/cardatm.svg" class="rounded mx-auto d-block" height="400px" width="400px" alt="...">
+                    <img src="./img/cardatm.svg" class="img-fluid rounded mx-auto d-block" height="400px" alt="...">
                 </div>
             </div>
         </div>

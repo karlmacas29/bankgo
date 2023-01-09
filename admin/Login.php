@@ -61,7 +61,7 @@ if(isset($_POST['userEnt'])){
         </div>
         <div class="col-xl-6">
             <div class="container">
-                <img src="./img/wow.svg" class="rounded mx-auto d-block" height="400px" width="400px" alt="...">
+                <img src="./img/wow.svg" class="img-fluid rounded mx-auto d-block" height="400px" alt="...">
             </div>
         </div>
     </div>
