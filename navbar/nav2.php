@@ -4,6 +4,6 @@
         <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bell fs-5"></i></button>
         <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#">No Notification Here</a></li>
-  </ul>
-</div>
+        </ul>
+    </div>
 </nav>
