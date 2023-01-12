@@ -9,7 +9,7 @@ include "./data/config.php";
     $id = $_SESSION['id'];
     $user = $_SESSION['name'];
 
-    $sqlCode = "SELECT B.client_id AS ClientId, B.card_id AS CardID, B.client_firstN, B.client_lastN, A.bal_balance AS Balance, C.wit_amount AS Withdraw_Amount, D.dep_amount AS Deposit_Amount FROM balance_inq A INNER JOIN clients B ON A.client_id = B.client_id INNER JOIN withdrawals C ON B.client_id = C.client_id INNER JOIN deposit D ON B.client_id = D.client_id WHERE B.client_id = {$id} ";
+    $sqlCode = "SELECT a.client_id AS ClientId , a.client_firstN , a.client_lastN, a.card_id AS CardID , b.bal_balance AS Balance FROM clients a INNER JOIN balance_inq b ON a.client_id = b.client_id WHERE a.client_id AND EXISTS (SELECT * FROM balance_inq b WHERE a.client_id = b.client_id AND b.client_id = {$id} )";
 
     $result = $con->query($sqlCode);
 

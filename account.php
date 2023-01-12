@@ -17,7 +17,7 @@ include "./data/config.php";
             $user = $_SESSION['name'];
     $con = new mysqli($server, $username, $password, $db);
 
-    $sqlCode = "SELECT * FROM clients WHERE client_id = {$id} ";
+    $sqlCode = "SELECT * FROM clients a WHERE a.client_id AND EXISTS (SELECT * FROM balance_inq B WHERE a.client_id = b.client_id AND b.client_id = {$id} )";
     
     $result = $con->query($sqlCode);
 

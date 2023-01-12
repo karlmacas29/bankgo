@@ -19,7 +19,7 @@
         if($con->query($sql)===TRUE){
             $wit1 = "UPDATE withdrawals SET wit_amount = wit_amount + {$wit} WHERE client_id ={$id}";
             if($con->query($wit1)===TRUE){
-                $sql5 = "INSERT INTO {$name3} ( `card_id`, `tran_message`, `date_time`) VALUES ('100',' You Withdraw ₱ {$wit} in Your ATM.', CURRENT_TIMESTAMP )";
+                $sql5 = "INSERT INTO {$name3} ( `card_id`, `tran_message`, `date_time`) VALUES ('{$card3}',' You Withdraw ₱ {$wit} in Your ATM.', CURRENT_TIMESTAMP )";
                 if($con->query($sql5) === TRUE){
                     $msg = array("val"=> true , "msg" => "Withdraw Success!");
                 }else{
